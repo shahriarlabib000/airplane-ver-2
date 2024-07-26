@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://ciiny532nrcbl"]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_3s767"]
+[ext_resource type="Texture2D" uid="uid://cn6ctwk5o0tnq" path="res://assets/icon.svg" id="1_omb2j"]
+[ext_resource type="PackedScene" uid="uid://d3kv3oj0ti8dd" path="res://scenes/airplane/airplane.tscn" id="2_ew6ir"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://scenes/virtual_joystick/virtual_joystick_scene.tscn" id="3_ncacx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nlwy8"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_c8ewo"]
+sky_material = SubResource("ProceduralSkyMaterial_nlwy8")
+
+[sub_resource type="Environment" id="Environment_j7bj0"]
+background_mode = 2
+sky = SubResource("Sky_c8ewo")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fcwp8"]
+albedo_texture = ExtResource("1_omb2j")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ahc0s"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5gv5t"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jvrul"]
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_3s767")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j7bj0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.274027, 0.215181, 0.789406, 1)
+light_energy = 0.1
+light_indirect_energy = 0.5
+shadow_enabled = true
+
+[node name="floor" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(10000, 1, 10000)
+material = SubResource("StandardMaterial3D_fcwp8")
+
+[node name="Airplane" parent="." instance=ExtResource("2_ew6ir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.22653, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Airplane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 15)
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Virtual Joystick" parent="ui" instance=ExtResource("3_ncacx")]
+offset_top = -300.0
+offset_bottom = 0.0
+action_left = "rLeft"
+action_right = "rRight"
+
+[node name="Left" type="TouchScreenButton" parent="ui"]
+position = Vector2(711, 485)
+scale = Vector2(100, 100)
+texture_normal = SubResource("CanvasTexture_ahc0s")
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="ui"]
+position = Vector2(859, 485)
+scale = Vector2(100, 100)
+texture_normal = SubResource("CanvasTexture_5gv5t")
+action = "ui_right"
+
+[node name="switchCam" type="TouchScreenButton" parent="ui"]
+position = Vector2(804, 226)
+scale = Vector2(100, 100)
+texture_normal = SubResource("CanvasTexture_jvrul")
+action = "ui_accept"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+current = true
