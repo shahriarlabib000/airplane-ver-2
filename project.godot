@@ -30,6 +30,10 @@ rLeft={
 "deadzone": 0.5,
 "events": []
 }
+engine={
+"deadzone": 0.5,
+"events": []
+}
 
 [physics]
 

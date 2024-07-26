@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://v6tf4sgb7mov"]
+
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://scenes/virtual_joystick/virtual_joystick_scene.tscn" id="1_akgpr"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ahc0s"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5gv5t"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jvrul"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_cwyih"]
+
+[node name="ui" type="CanvasLayer"]
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("1_akgpr")]
+offset_top = -300.0
+offset_bottom = 0.0
+action_left = "rLeft"
+action_right = "rRight"
+
+[node name="leftBtnNode" type="Node2D" parent="."]
+position = Vector2(711, 485)
+
+[node name="Left" type="TouchScreenButton" parent="leftBtnNode"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(100, 100)
+texture_normal = SubResource("CanvasTexture_ahc0s")
+action = "ui_left"
+
+[node name="Label" type="Label" parent="leftBtnNode"]
+offset_right = 101.0
+offset_bottom = 102.0
+text = "left"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightBtnNode" type="Node2D" parent="."]
+position = Vector2(860, 485)
+
+[node name="Right" type="TouchScreenButton" parent="RightBtnNode"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(100, 100)
+texture_normal = SubResource("CanvasTexture_5gv5t")
+action = "ui_right"
+
+[node name="Label" type="Label" parent="RightBtnNode"]
+offset_right = 100.0
+offset_bottom = 100.0
+text = "Right"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="switchCamNode" type="Node2D" parent="."]
+position = Vector2(780, 220)
+
+[node name="switchCam" type="TouchScreenButton" parent="switchCamNode"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(100, 100)
+texture_normal = SubResource("CanvasTexture_jvrul")
+action = "ui_accept"
+
+[node name="Label" type="Label" parent="switchCamNode"]
+offset_right = 102.0
+offset_bottom = 100.0
+text = "cam"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EngineToggle" type="Node2D" parent="."]
+position = Vector2(809, 88)
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="EngineToggle"]
+modulate = Color(0.446668, 0.577596, 0.421508, 1)
+scale = Vector2(100, 50)
+texture_normal = SubResource("CanvasTexture_cwyih")
+action = "engine"
+
+[node name="Label" type="Label" parent="EngineToggle"]
+offset_right = 101.0
+offset_bottom = 52.0
+text = "Engine"
+horizontal_alignment = 1
+vertical_alignment = 1
